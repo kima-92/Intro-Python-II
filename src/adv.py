@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -41,6 +42,10 @@ print(room['outside'].n_to.name)
 #
 
 # Make a new player object that is currently in the 'outside' room.
+outside_room = room['outside']
+
+player1 = Player("player1", outside_room)
+print(f"player1 is currently in the: {outside_room.name}")
 
 # Write a loop that:
 #
