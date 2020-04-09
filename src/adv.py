@@ -34,15 +34,23 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-print("Room north to 'Outside': ")
-print(room['outside'].n_to.name)
-
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
 outside_room = room['outside']
+
+player_name = input("\nWelcome to Mystical Wonders!\n\nWhat is your name?: ")
+
+player = Player(player_name, outside_room)
+
+print(f"\nHello {player.name}! You are currently in: {player.current_room.name}")
+print("""\nYou can enter different rooms by moving North, South, East or West. 
+To move use the commands 'n', 's', 'e' or 'w'. 
+Use the 'q' keyword when you decide you want to exit the game.""")
+
+new_direction = ""
 
 # Write a loop that:
 #
@@ -56,19 +64,37 @@ outside_room = room['outside']
 # If the user enters "q", quit the game.
 
 
-player_name = input("\nWelcome to Mystical Wonders!\n\nWhat is your name?: ")
+def try_to_move(direction):
 
-player = Player(player_name, outside_room)
+    if direction == "n":
+        
+        player.current_room = player.current_room.n_to
+        print(f"You moved North! You are currently in the {player.current_room.name}")
 
-print(f"\nHello {player.name}! You are currently in: {player.current_room.name}")
-print("\nYou can enter different rooms by moving North, South, East or West. To move use the commands n, s, e or w.")
-new_direction = ""
+    elif direction == "s":
+
+        player.current_room = player.current_room.s_to
+        print(f"You moved South! You are currently in the {player.current_room.name}")
+
+
+    elif direction == "e":
+
+        player.current_room = player.current_room.e_to
+        print(f"You moved East! You are currently in the {player.current_room.name}")
+
+
+    elif direction == "w":
+
+        player.current_room = player.current_room.w_to
+        print(f"You moved West! You are currently in the {player.current_room.name}")
+
+    elif direction != "q":
+        print("Invalid entry, please try 'n', 's', 'e', 'w' or 'q'")
+
+
 
 while new_direction != "q":
 
-    new_direction = input("Where do you want to go? : ")
+    new_direction = input("\nWhere do you want to go? : ")
 
-    if new_direction == "n":
-        
-        player.current_room = player.current_room.n_to
-        print(f"You are moved North! You are currently in the {player.current_room.name}")
+    try_to_move(new_direction)
