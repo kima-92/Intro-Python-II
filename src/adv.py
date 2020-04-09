@@ -63,30 +63,51 @@ new_direction = ""
 #
 # If the user enters "q", quit the game.
 
+# def grab_direction(direction_strin)
+
 
 def try_to_move(direction):
 
     if direction == "n":
         
-        player.current_room = player.current_room.n_to
-        print(f"You moved North! You are currently in the {player.current_room.name}")
+        if player.current_room.n_to == []:
+            print("There is nothing in this direction, try another direction.")
+
+        else:
+            player.current_room = player.current_room.n_to
+            print(f"You moved North! You are currently in the {player.current_room.name}")
 
     elif direction == "s":
+        
+        if player.current_room.s_to == []:
+            print("There is nothing in this direction, try another direction.")
 
-        player.current_room = player.current_room.s_to
-        print(f"You moved South! You are currently in the {player.current_room.name}")
+        else:
+            
+            player.current_room = player.current_room.s_to
+            print(f"You moved South! You are currently in the {player.current_room.name}. {player.current_room.description}")
 
 
     elif direction == "e":
 
-        player.current_room = player.current_room.e_to
-        print(f"You moved East! You are currently in the {player.current_room.name}")
+        if player.current_room.e_to == []:
+            print("There is nothing in this direction, try another direction.")
+
+        else:
+            
+            player.current_room = player.current_room.e_to
+            print(f"You moved East! You are currently in the {player.current_room.name}")
 
 
     elif direction == "w":
 
-        player.current_room = player.current_room.w_to
-        print(f"You moved West! You are currently in the {player.current_room.name}")
+        if player.current_room.w_to == []:
+            print("There is nothing in this direction, try another direction.")
+
+        else:
+            
+            player.current_room = player.current_room.w_to
+            print(f"You moved West! You are currently in the {player.current_room.name}")
 
     elif direction != "q":
         print("Invalid entry, please try 'n', 's', 'e', 'w' or 'q'")
