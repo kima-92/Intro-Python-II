@@ -44,9 +44,6 @@ print(room['outside'].n_to.name)
 # Make a new player object that is currently in the 'outside' room.
 outside_room = room['outside']
 
-player1 = Player("player1", outside_room)
-print(f"player1 is currently in the: {outside_room.name}")
-
 # Write a loop that:
 #
 # * Prints the current room name
@@ -57,3 +54,21 @@ print(f"player1 is currently in the: {outside_room.name}")
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+
+player_name = input("\nWelcome to Mystical Wonders!\n\nWhat is your name?: ")
+
+player = Player(player_name, outside_room)
+
+print(f"\nHello {player.name}! You are currently in: {player.current_room.name}")
+print("\nYou can enter different rooms by moving North, South, East or West. To move use the commands n, s, e or w.")
+new_direction = ""
+
+while new_direction != "q":
+
+    new_direction = input("Where do you want to go? : ")
+
+    if new_direction == "n":
+        
+        player.current_room = player.current_room.n_to
+        print(f"You are moved North! You are currently in the {player.current_room.name}")
