@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -34,23 +35,32 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+# Add items to rooms
+
+room['foyer'].add_new_item(Item("hat", "A very pretty hat"))
+
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
+
 outside_room = room['outside']
 
 player_name = input("\nWelcome to Mystical Wonders!\n\nWhat is your name?: ")
-
 player = Player(player_name, outside_room)
+
+# Print game intro Dialogue
 
 print(f"\nHello {player.name}! You are currently in: {player.current_room.name}")
 print("""\nYou can enter different rooms by moving North, South, East or West. 
 To move use the commands 'n', 's', 'e' or 'w'. 
 Use the 'q' keyword when you decide you want to exit the game.""")
 
+# Attributes
+
 new_direction = ""
+current_room = player.current_room
 
 # Write a loop that:
 #
@@ -65,49 +75,63 @@ new_direction = ""
 
 # def grab_direction(direction_strin)
 
+# def check_if_room_available(direction):
+
+def display_items():
+
+    items = current_room.items
+
+    if items != []:
+        
+        print("\nThis room has items!\n")
+        
+        for i in items:
+            print(i)
 
 def try_to_move(direction):
 
+    global current_room
+
     if direction == "n":
         
-        if player.current_room.n_to == []:
+        if current_room.n_to == []:
             print("There is nothing in this direction, try another direction.")
 
         else:
-            player.current_room = player.current_room.n_to
-            print(f"You moved North! You are currently in the {player.current_room.name}")
+            current_room = current_room.n_to
+            print(f"You moved North! You are currently in the {current_room.name}. {current_room.description}")
+
+            display_items()
 
     elif direction == "s":
         
-        if player.current_room.s_to == []:
+        if current_room.s_to == []:
             print("There is nothing in this direction, try another direction.")
 
         else:
             
-            player.current_room = player.current_room.s_to
-            print(f"You moved South! You are currently in the {player.current_room.name}. {player.current_room.description}")
-
+            current_room = current_room.s_to
+            print(f"You moved South! You are currently in the {current_room.name}. {current_room.description}")
 
     elif direction == "e":
 
-        if player.current_room.e_to == []:
+        if current_room.e_to == []:
             print("There is nothing in this direction, try another direction.")
 
         else:
             
-            player.current_room = player.current_room.e_to
-            print(f"You moved East! You are currently in the {player.current_room.name}")
-
+            current_room = current_room.e_to
+            print(f"You moved East! You are currently in the {current_room.name}. {current_room.description}")
 
     elif direction == "w":
 
-        if player.current_room.w_to == []:
+        if current_room.w_to == []:
             print("There is nothing in this direction, try another direction.")
 
         else:
             
-            player.current_room = player.current_room.w_to
-            print(f"You moved West! You are currently in the {player.current_room.name}")
+            current_room = current_room.w_to
+            print(f"You moved West! You are currently in the {current_room.name}. {current_room.description}")
 
     elif direction != "q":
         print("Invalid entry, please try 'n', 's', 'e', 'w' or 'q'")
