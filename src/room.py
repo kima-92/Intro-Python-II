@@ -16,3 +16,6 @@ class Room:
 
         self.items = []
 
+    def add_new_item(self, item):
+
+        self.items.append(item)
